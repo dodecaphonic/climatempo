@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-require 'open-uri'
 require 'nokogiri'
 
 module ClimaTempo
@@ -37,7 +36,7 @@ module ClimaTempo
           case type
           when :airports
             parse_airport line
-          when :regions, :country
+          when :regions, :brazil
             parse_descriptive line
           else
             parse_regular line
