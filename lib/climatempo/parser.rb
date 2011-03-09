@@ -16,6 +16,13 @@ module ClimaTempo
       @pressure      = opts[:pressure]
       @humidity      = opts[:humidity]
     end
+
+    def today?
+      now = DateTime.now
+      now.year == date.year &&
+        now.month == date.month &&
+        now.day == date.day
+    end
   end
 
   class Parser
