@@ -1,7 +1,4 @@
 # -*- coding: utf-8 -*-
-require "parser"
-require "open-uri"
-
 module ClimaTempo
   SOURCES = {
     :capitals => "http://www.climatempo.com.br/rss/capitais.xml",
@@ -39,7 +36,7 @@ module ClimaTempo
     "Aracaju" => "aracaju/se",
     "Palmas" => "palmas/to"
   }
-  
+
   class Weather
     attr_reader :places, :capitals, :brazil,
                 :regions, :airports
@@ -54,6 +51,11 @@ module ClimaTempo
         merge(@regions).merge(@airports)
     end
 
+    # Search nominally for a given place and
+    # return its forecasts. Capital cities can be
+    # found both by ClimaTempo's naming conventions
+    # (no spaces, state at the end separated by a slash)
+    # and their capitalized names.
     def forecast_for(place)
       @places[place] || @places[CAPITALS[place]]
     end

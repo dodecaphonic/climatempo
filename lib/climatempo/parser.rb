@@ -1,6 +1,4 @@
 # -*- coding: utf-8 -*-
-require 'nokogiri'
-
 module ClimaTempo
   class Forecast
     attr_reader :date, :min, :max, :now, :precipitation,
