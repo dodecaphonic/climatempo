@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
    s.name = "climatempo"
-   s.version = "0.1.0"
+   s.version = "0.1.1"
    s.date = "2011-03-09"
    s.authors = ["Vitor Peres"]
    s.email = "dodecaphonic@gmail.com"

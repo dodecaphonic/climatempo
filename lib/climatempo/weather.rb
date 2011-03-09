@@ -41,11 +41,18 @@ module ClimaTempo
     attr_reader :places, :capitals, :brazil,
                 :regions, :airports
 
-    def initialize
+    def initialize(capitals_only=false)
       @capitals = load_up(:capitals)
-      @brazil   = load_up(:brazil)
-      @regions  = load_up(:regions)
-      @airports = load_up(:airports)
+
+      unless capitals_only
+        @brazil   = load_up(:brazil)
+        @regions  = load_up(:regions)
+        @airports = load_up(:airports)
+      else
+        @brazil   = {}
+        @regions  = {}
+        @airports = {}
+      end
 
       @places = @capitals.merge(@brazil).
         merge(@regions).merge(@airports)
