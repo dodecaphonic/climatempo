@@ -37,11 +37,14 @@ module ClimaTempo
     "Palmas" => "palmas/to"
   }
 
-  class Weather
-    attr_reader :places, :capitals, :brazil,
-                :regions, :airports
+  class UnknownLocationError < StandardError; end
 
-    def initialize(capitals_only=false)
+  class Weather
+    attr_reader :places, :capitals, :brazil, :regions, :airports, :parser, :fetcher
+
+    def initialize(capitals_only = false, fetcher = HTTParty, parser = Parser)
+      @fetcher  = fetcher
+      @parser   = parser
       @capitals = load_up(:capitals)
 
       unless capitals_only
@@ -64,12 +67,14 @@ module ClimaTempo
     # (no spaces, state at the end separated by a slash)
     # and their capitalized names.
     def forecast_for(place)
-      @places[place] || @places[CAPITALS[place]]
+      @places[place] || @places.fetch(CAPITALS[place])
+    rescue
+      raise UnknownLocationError, "Couldn't find #{place} among the forecasts"
     end
 
     private
     def load_up(feed)
-      Parser.parse open(SOURCES[feed]), feed
+      parser.parse fetcher.get(SOURCES[feed]).body, feed
     end
   end
 end

@@ -1,9 +1,10 @@
 source :rubygems
 
 gem 'nokogiri'
+gem 'httparty'
 
 group :test, :development do
-  gem 'jeweler'
   gem 'rspec'
-  gem 'ruby-debug19'
+  gem 'vcr'
+  gem 'fakeweb'
 end

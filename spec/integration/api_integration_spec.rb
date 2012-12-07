@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 
-require './lib/weather'
-require './spec/spec_helper'
+require 'spec_helper'
 
 describe ClimaTempo::Weather do
   before :each do
-    @weather = ClimaTempo::Weather.new
+    VCR.use_cassette('all_forecasts') do
+      @weather = ClimaTempo::Weather.new
+    end
   end
 
   it "lets us get forecast information for a specific place" do
